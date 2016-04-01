@@ -8,8 +8,25 @@ output:
 
 ## Loading and preprocessing the data
 
+```{r}
+library (data.table)
+
+# file download
+url <- "https://github.com/kdconway/RepData_PeerAssessment1/raw/master/activity.zip"
+if (!file.exists ("./data")) {
+    dir.create ("./data")
+    download.file (url, "./data/activity.zip")
+    unzip ("./data/activity.zip", exdir = "./data")
+}     
+
+#read in activity data to act dataframe
+act <- read.csv ("./data/activity.csv")
 
 
+#transform date to Posix.lt format
+act$date <- transform (act, date=as.POSIXlt((date)))
+
+```
 ## What is mean total number of steps taken per day?
 
 
